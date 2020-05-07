@@ -20,10 +20,41 @@ class Department {
     }
 }
 
-const accounting = new Department('d1', 'Accounting');
+class ITDepartment extends Department {
+    constructor(id: string, public admins: string[]) {
+        super(id, 'IT');
+    }
+
+    addAdmin(admin: string) {
+        this.admins.push(admin);
+    }
+
+    getAdmins() {
+        console.log(this.admins);
+    }
+}
+
+class AccountingDepartment extends Department {
+    constructor(id: string, public reports: string[]){
+        super(id, 'Accounting');
+    }
+
+    addReport(report: string) {
+        this.reports.push(report);
+    }
+
+    getReports() {
+        console.log(this.reports);
+    }
+}
+
+const accounting = new AccountingDepartment('d1', ['Initial Report']);
 
 accounting.addEmployee('Sean');
 accounting.addEmployee('Brooke');
+
+accounting.addReport('Up 5 figures');
+accounting.getReports();
 
 // accounting.printEmployeeInformation();
 
@@ -33,9 +64,21 @@ accounting.addEmployee('Brooke');
 
 accounting.describe();
 
+console.log(accounting);
+
 // const accountingCopy = {
 //     name: 's',
 //     describe: accounting.describe
 // }
 //
 // accountingCopy.describe();
+
+const itDepartment = new ITDepartment('d2', []);
+
+itDepartment.addAdmin('Sean');
+
+itDepartment.getAdmins();
+
+itDepartment.describe();
+
+console.log(itDepartment);

@@ -35,12 +35,33 @@ class ITDepartment extends Department {
 }
 
 class AccountingDepartment extends Department {
-    constructor(id: string, public reports: string[]){
+
+    private lastReport: string;
+
+    get mostRecentReport() {
+        if(this.lastReport) {
+            return this.lastReport;
+        }
+        else {
+            throw new Error('No Report');
+        }
+    }
+
+    set mostRecentReport(value: string) {
+        if(!value) {
+            throw new Error('Please pass in a valid value!')
+        }
+        this.addReport(value);
+    }
+
+    constructor(id: string, private reports: string[]){
         super(id, 'Accounting');
+        this.lastReport = this.reports[0];
     }
 
     addReport(report: string) {
         this.reports.push(report);
+        this.lastReport = report;
     }
 
     getReports() {
@@ -48,13 +69,21 @@ class AccountingDepartment extends Department {
     }
 }
 
-const accounting = new AccountingDepartment('d1', ['Initial Report']);
+const accounting = new AccountingDepartment('d1', []);
 
-accounting.addEmployee('Sean');
-accounting.addEmployee('Brooke');
+accounting.addReport('Report 1');
 
-accounting.addReport('Up 5 figures');
-accounting.getReports();
+console.log(accounting.mostRecentReport);
+
+accounting.mostRecentReport = 'Report 2';
+
+console.log(accounting.mostRecentReport);
+
+// accounting.addEmployee('Sean');
+// accounting.addEmployee('Brooke');
+//
+// accounting.addReport('Up 5 figures');
+// accounting.getReports();
 
 // accounting.printEmployeeInformation();
 
@@ -62,9 +91,9 @@ accounting.getReports();
 
 // console.log(accounting);
 
-accounting.describe();
-
-console.log(accounting);
+// accounting.describe();
+//
+// console.log(accounting);
 
 // const accountingCopy = {
 //     name: 's',
@@ -75,10 +104,13 @@ console.log(accounting);
 
 const itDepartment = new ITDepartment('d2', []);
 
-itDepartment.addAdmin('Sean');
+// itDepartment.addAdmin('Sean');
+//
+// itDepartment.getAdmins();
+//
+// itDepartment.describe();
+//
+// console.log(itDepartment);
 
-itDepartment.getAdmins();
 
-itDepartment.describe();
 
-console.log(itDepartment);

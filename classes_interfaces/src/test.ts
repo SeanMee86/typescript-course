@@ -17,7 +17,6 @@ class Dog extends Animal{
 
     constructor(public name: string) {
         super(4, 'House hold', 'Mammal')
-
     }
 
     sound() {
@@ -47,7 +46,7 @@ class MyDog extends Dog {
         super('Joe');
     }
 
-    static getInstance(owner: string): MyDog {
+    public static getInstance(owner: string): MyDog {
         if(this.instance) {
             return this.instance;
         }

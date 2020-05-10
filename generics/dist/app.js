@@ -1,3 +1,4 @@
+"use strict";
 // function merge<T extends object, U extends object>(objA: T, objB: U) {
 //     console.log(Object.assign(objA, objB))
 //     // return Object.assign(objA, objB);
@@ -28,50 +29,31 @@
 // }
 //
 // console.log(extractAndConvert({name: 'Sean'}, 'name'))
-
-class DataStorage<T extends string | number> {
-    private item: T[] = [];
-
-    addItem(item: T) {
+class DataStorage {
+    constructor() {
+        this.item = [];
+    }
+    addItem(item) {
         this.item.push(item);
     }
-
-    removeItem(item: T) {
+    removeItem(item) {
         this.item.splice(this.item.indexOf(item), 1);
     }
-
     getItems() {
         return this.item;
     }
 }
-
-const numStore = new DataStorage<number>();
-
+const numStore = new DataStorage();
 numStore.addItem(5);
 numStore.addItem(10);
 numStore.removeItem(10);
 console.log(numStore.getItems());
-
-interface CourseGoal {
-    title: string;
-    description: string;
-    completeUntil: Date;
-}
-
-function createCourseGoal(
-    title: string,
-    description: string,
-    date: Date
-): CourseGoal {
-    let courseGoal: Partial<CourseGoal> = {};
-
+function createCourseGoal(title, description, date) {
+    let courseGoal = {};
     courseGoal.title = title;
     courseGoal.description = description;
     courseGoal.completeUntil = date;
-    return courseGoal as CourseGoal;
+    return courseGoal;
 }
-
-const names: Readonly<string[]> = ['Sean', 'Brooke'];
-
+const names = ['Sean', 'Brooke'];
 // names.push('Mike');
-
